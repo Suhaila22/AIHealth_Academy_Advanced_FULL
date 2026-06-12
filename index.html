@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> البرنامج المتقدم للذكاء الاصطناعي في الرعاية الصحية</title>
-<meta name="description" content="اعداد د.سهيلة محي الدين منصة تدريبية متقدمة: 10 وحدات، 80 ساعة — XAI، CDSS، التعلم الفيدرالي، LangGraph، مع بيئة Python عبر Google Colab">
+<title>Dr.Eng.Suhaila Mohieldin— البرنامج المتقدم للذكاء الاصطناعي في الرعاية الصحية</title>
+<meta name="description" content="منصة تدريبية متقدمة: 10 وحدات، 80 ساعة — XAI، CDSS، التعلم الفيدرالي، LangGraph، مع بيئة Python عبر Google Colab">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -269,6 +269,37 @@ circle.fill { fill:none; stroke-width:8; stroke-linecap:round; transition:stroke
 .notification { position:fixed;bottom:24px;left:24px; background:var(--bg-elevated); border:1px solid var(--accent-glow); border-radius:10px; padding:12px 16px; font-size:13px; font-family:var(--font); display:flex;align-items:center;gap:8px; z-index:9999; animation:slideIn .3s ease; max-width:300px; }
 @keyframes slideIn{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
 
+/* REGISTER BUTTON + SOCIAL + MODAL */
+.btn-register { background:linear-gradient(135deg,var(--accent),#0099CC); color:#06231b; border:none; border-radius:20px; padding:7px 16px; font-size:13px; font-weight:700; font-family:var(--font); cursor:pointer; transition:transform .15s, box-shadow .15s; }
+.btn-register:hover { transform:translateY(-1px); box-shadow:0 4px 16px var(--accent-glow); }
+.social-link { display:flex; align-items:center; gap:10px; padding:8px 12px; border-radius:8px; text-decoration:none; color:var(--text-muted); font-size:12.5px; font-family:var(--font); margin-bottom:4px; transition:all .15s; border:1px solid transparent; }
+.social-link:hover { background:var(--bg-elevated); color:var(--text); border-color:var(--border); }
+.social-ic { width:22px; height:22px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0; color:#fff; }
+.social-link.linkedin .social-ic { background:#0A66C2; }
+.social-link.whatsapp .social-ic { background:#25D366; font-size:14px; }
+.social-link.wordpress .social-ic { background:#21759B; }
+.modal-overlay { position:fixed; inset:0; background:rgba(5,8,16,0.72); backdrop-filter:blur(3px); display:none; align-items:center; justify-content:center; z-index:10000; animation:fadeIn .2s ease; }
+.modal-overlay.open { display:flex; }
+.modal-card { background:var(--bg-card); border:1px solid var(--border-accent); border-radius:var(--radius-lg); padding:26px; width:440px; max-width:92vw; max-height:90vh; overflow-y:auto; }
+.modal-head { display:flex; align-items:flex-start; gap:12px; margin-bottom:6px; }
+.modal-head .mh-icon { width:44px; height:44px; background:var(--accent-dim); border:1px solid var(--accent-glow); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; }
+.modal-title { font-size:18px; font-weight:700; font-family:var(--font); }
+.modal-sub { font-size:12.5px; color:var(--text-muted); margin-top:2px; line-height:1.6; }
+.modal-close { margin-right:auto; background:none; border:none; color:var(--text-dim); font-size:22px; cursor:pointer; line-height:1; }
+.modal-close:hover { color:var(--text); }
+.form-row { margin-top:14px; }
+.form-label { font-size:12.5px; font-family:var(--font); color:var(--text-muted); margin-bottom:5px; display:block; }
+.form-input { width:100%; background:var(--bg-elevated); border:1px solid var(--border); border-radius:9px; padding:10px 13px; color:var(--text); font-family:var(--font-body); font-size:14px; outline:none; }
+.form-input:focus { border-color:var(--accent-glow); }
+.form-input.err { border-color:var(--red); }
+select.form-input { cursor:pointer; }
+.modal-social { display:flex; gap:8px; margin-top:18px; padding-top:16px; border-top:1px solid var(--border); }
+.modal-social a { flex:1; text-align:center; padding:8px; border-radius:8px; font-size:11.5px; font-weight:600; font-family:var(--font); text-decoration:none; color:#fff; transition:opacity .15s; }
+.modal-social a:hover { opacity:.85; }
+.ms-li { background:#0A66C2; } .ms-wa { background:#25D366; } .ms-wp { background:#21759B; }
+.success-box { text-align:center; padding:16px 8px; }
+.success-box .sb-check { width:60px; height:60px; border-radius:50%; background:var(--accent-dim); border:2px solid var(--accent); display:flex; align-items:center; justify-content:center; font-size:30px; margin:0 auto 14px; }
+
 @media(max-width:900px) {
   .app-shell { grid-template-columns:1fr; }
   .sidebar { display:none; }
@@ -284,11 +315,12 @@ circle.fill { fill:none; stroke-width:8; stroke-linecap:round; transition:stroke
   <header class="topbar">
     <div class="logo-mark">
       <div class="logo-icon">🧬</div>
-      <div class="logo-text">/Dr.Eng Suhaila Mohieldin <span style="font-size:10px;color:var(--text-dim);font-weight:400"/span></div>
     </div>
     <div class="topbar-right">
+      <button class="btn-register" onclick="openRegister()">📝 سجّل في البرنامج</button>
       <div class="level-badge">🎖️ مستوى متقدم</div>
       <div class="xp-badge">⚡ <span id="xp-display">1,240</span> XP</div>
+            <div class="logo-text">/Dr.Eng Suhaila Mohieldin <span style="font-size:10px;color:var(--text-dim);font-weight:400"/span></div>
       <div class="user-avatar" title="د. سهيلة محي الدين">سم</div>
     </div>
   </header>
@@ -308,6 +340,12 @@ circle.fill { fill:none; stroke-width:8; stroke-linecap:round; transition:stroke
     <div class="sidebar-section">
       <div class="sidebar-label">الوحدات العشر — 80 ساعة</div>
       <div class="module-list" id="sidebar-modules"></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">تابعونا</div>
+      <a href="https://www.linkedin.com/in/suhaila-mohieldin/" target="_blank" rel="noopener" class="social-link linkedin"><span class="social-ic">in</span>LinkedIn — د. سهيلة محي الدين</a>
+      <a href="https://whatsapp.com/channel/0029VbCHarwLY6dEThsoox1g" target="_blank" rel="noopener" class="social-link whatsapp"><span class="social-ic">✆</span>قناة الواتساب</a>
+      <a href="https://suhailamohieldin.wordpress.com/" target="_blank" rel="noopener" class="social-link wordpress"><span class="social-ic">W</span>مدوّنة WordPress</a>
     </div>
     <div class="progress-mini">
       <div class="progress-mini-label"><span>تقدم البرنامج</span><span id="progress-pct">22%</span></div>
@@ -364,7 +402,7 @@ circle.fill { fill:none; stroke-width:8; stroke-linecap:round; transition:stroke
           </div>
           <button class="btn btn-outline" style="font-size:12px" onclick="copySetup()">📋 نسخ كود الإعداد</button>
         </div>
-        <div class="code-block" style="margin-top:12px"><pre id="setup-code"><span class="cm"># Dr.Eng Suhaila Mohieldin — Standard Environment Setup</span>
+        <div class="code-block" style="margin-top:12px"><pre id="setup-code"><span class="cm">#  Standard Environment Setup</span>
 !pip install -q fhir.resources pydicom monai shap lime captum
 !pip install -q langchain langchain-anthropic langgraph chromadb
 !pip install -q lifelines imbalanced-learn opacus flwr medspacy
@@ -372,7 +410,7 @@ circle.fill { fill:none; stroke-width:8; stroke-linecap:round; transition:stroke
 
 <span class="kw">import</span> warnings; warnings.filterwarnings(<span class="st">'ignore'</span>)
 <span class="kw">import</span> numpy <span class="kw">as</span> np, pandas <span class="kw">as</span> pd, matplotlib.pyplot <span class="kw">as</span> plt
-<span class="fn">print</span>(<span class="st">'✅ AI Health environment ready'</span>)</pre></div>
+<span class="fn">print</span>(<span class="st">'✅ AI environment ready'</span>)</pre></div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px" id="colab-notebooks-grid"></div>
       <div class="section-title" style="margin-top:6px">💻 معاينة مختبر الوحدة 6 — SHAP للتفسير السريري</div>
@@ -394,7 +432,7 @@ circle.fill { fill:none; stroke-width:8; stroke-linecap:round; transition:stroke
         <div style="padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px">
           <div style="width:36px;height:36px;border-radius:50%;background:var(--accent-dim);border:1px solid var(--accent-glow);display:flex;align-items:center;justify-content:center;font-size:18px">🧬</div>
           <div>
-            <div style="font-size:14px;font-weight:600;font-family:var(--font)">مساعد AI Health  المتقدم</div>
+            <div style="font-size:14px;font-weight:600;font-family:var(--font)">مساعد AI Health  </div>
             <div style="font-size:11px;color:var(--accent)">● جاهز — مساعد محلي (يعمل دون إنترنت) | متخصص: XAI · CDSS · FL · الحوكمة</div>
           </div>
           <button class="btn btn-outline" style="margin-right:auto;font-size:12px;padding:6px 12px" onclick="clearChat()">مسح المحادثة</button>
@@ -483,7 +521,7 @@ circle.fill { fill:none; stroke-width:8; stroke-linecap:round; transition:stroke
       </div>
       <div class="cert-card cert-locked">
         <div style="font-size:38px;margin-bottom:6px">🧬</div>
-        <div class="cert-univ">Dr.Eng Suhaila Mohieldin </div>
+        <div class="cert-univ">Dr.Suhaila Mohieldin</div>
         <div style="font-size:13px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.15em;margin-bottom:8px">Advanced Practitioner Certificate</div>
         <div class="cert-name">Dr. Suhaila Mohieldin</div>
         <div style="font-size:13px;color:var(--text-dim);margin-bottom:10px">PhD. Biomedical Engineering</div>
@@ -507,6 +545,51 @@ circle.fill { fill:none; stroke-width:8; stroke-linecap:round; transition:stroke
       </div>
     </div>
   </main>
+</div>
+
+<!-- REGISTRATION MODAL -->
+<div class="modal-overlay" id="register-modal" onclick="if(event.target===this)closeRegister()">
+  <div class="modal-card" id="register-card">
+    <div class="modal-head">
+      <div class="mh-icon">🧬</div>
+      <div>
+        <div class="modal-title">التسجيل في البرنامج المتقدم</div>
+        <div class="modal-sub">الذكاء الاصطناعي في الرعاية الصحية — 10 وحدات · 80 ساعة</div>
+      </div>
+      <button class="modal-close" onclick="closeRegister()" title="إغلاق">×</button>
+    </div>
+    <div id="register-body">
+      <div class="form-row">
+        <label class="form-label">الاسم الكامل *</label>
+        <input class="form-input" id="reg-name" placeholder="مثال: د. سهيلة محي الدين">
+      </div>
+      <div class="form-row">
+        <label class="form-label">البريد الإلكتروني *</label>
+        <input class="form-input" id="reg-email" type="email" placeholder="name@example.com" dir="ltr">
+      </div>
+      <div class="form-row">
+        <label class="form-label">الجهة / المؤسسة</label>
+        <input class="form-input" id="reg-org" placeholder="الجامعة أو المستشفى (اختياري)">
+      </div>
+      <div class="form-row">
+        <label class="form-label">خلفيتك المهنية</label>
+        <select class="form-input" id="reg-role">
+          <option>طبيب / استشاري</option>
+          <option>مهندس طبي حيوي</option>
+          <option>عالم بيانات / مهندس ML</option>
+          <option>باحث / أكاديمي</option>
+          <option>طالب دراسات عليا</option>
+          <option>أخرى</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:18px" onclick="submitRegister()">تأكيد التسجيل ←</button>
+      <div class="modal-social">
+        <a class="ms-li" href="https://www.linkedin.com/in/suhaila-mohieldin/" target="_blank" rel="noopener">in · LinkedIn</a>
+        <a class="ms-wa" href="https://whatsapp.com/channel/0029VbCHarwLY6dEThsoox1g" target="_blank" rel="noopener">✆ واتساب</a>
+        <a class="ms-wp" href="https://suhailamohieldin.wordpress.com/" target="_blank" rel="noopener">W · المدوّنة</a>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="notification" id="notif" style="display:none"></div>
@@ -2159,6 +2242,35 @@ function showNotif(msg){
   clearTimeout(el._timer);
   el._timer=setTimeout(()=>{el.style.display='none';},3000);
 }
+/* ════════ REGISTRATION ════════ */
+function openRegister(){ document.getElementById('register-modal').classList.add('open'); }
+function closeRegister(){ document.getElementById('register-modal').classList.remove('open'); }
+function submitRegister(){
+  const name=document.getElementById('reg-name');
+  const email=document.getElementById('reg-email');
+  const valid=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value.trim());
+  name.classList.toggle('err', !name.value.trim());
+  email.classList.toggle('err', !valid);
+  if(!name.value.trim() || !valid){ showNotif('⚠️ يرجى إدخال الاسم وبريد إلكتروني صحيح'); return; }
+  const data={ name:name.value.trim(), email:email.value.trim(),
+    org:document.getElementById('reg-org').value.trim(),
+    role:document.getElementById('reg-role').value, at:new Date().toISOString() };
+  try{ const all=JSON.parse(localStorage.getItem('aih_registrations')||'[]'); all.push(data); localStorage.setItem('aih_registrations',JSON.stringify(all)); }catch(e){}
+  document.getElementById('register-body').innerHTML=
+    '<div class="success-box">'+
+      '<div class="sb-check">✓</div>'+
+      '<div style="font-size:17px;font-weight:700;font-family:var(--font);margin-bottom:6px">تم تسجيلك بنجاح، '+escapeHtml(data.name)+'! 🎉</div>'+
+      '<div style="font-size:13px;color:var(--text-muted);line-height:1.8;max-width:340px;margin:0 auto">أهلاً بك في البرنامج المتقدم. للبقاء على اطّلاع بمواعيد الجلسات والمحتوى الجديد، تابعينا عبر القنوات التالية:</div>'+
+      '<div class="modal-social" style="margin-top:18px;border-top:none">'+
+        '<a class="ms-li" href="https://www.linkedin.com/in/suhaila-mohieldin/" target="_blank" rel="noopener">in · LinkedIn</a>'+
+        '<a class="ms-wa" href="https://whatsapp.com/channel/0029VbCHarwLY6dEThsoox1g" target="_blank" rel="noopener">✆ واتساب</a>'+
+        '<a class="ms-wp" href="https://suhailamohieldin.wordpress.com/" target="_blank" rel="noopener">W · المدوّنة</a>'+
+      '</div>'+
+      '<button class="btn btn-outline" style="margin-top:16px;width:100%;font-size:13px" onclick="closeRegister()">إغلاق</button>'+
+    '</div>';
+  showNotif('🎉 تم استلام تسجيلك بنجاح');
+}
+document.addEventListener('keydown',function(e){ if(e.key==='Escape')closeRegister(); });
 
 init();
 </script>
