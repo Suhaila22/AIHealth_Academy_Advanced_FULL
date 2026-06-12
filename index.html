@@ -320,15 +320,13 @@ select.form-input { cursor:pointer; }
     </div>
     <div class="topbar-right">
       <button class="btn-home" onclick="navigate('dashboard')" title="العودة للصفحة الرئيسية">🏠 الرئيسية</button>
+      <button class="btn-home" onclick="document.getElementById('login-modal').classList.add('open')" title="تسجيل الدخول">🔑 دخول</button>
       <button class="btn-register" onclick="openRegister()">📝 سجّل في البرنامج</button>
       <div class="level-badge">🎖️ مستوى متقدم</div>
       <div class="xp-badge">⚡ <span id="xp-display">1,240</span> XP</div>
-            <div class="logo-text">/Dr.Eng Suhaila Mohieldin <span style="font-size:10px;color:var(--text-dim);font-weight:400"/span></div>
-      <div class="user-avatar" title="د. سهيلة محي الدين">سم</div>
-      <button class="btn btn-outline" onclick="navigate('dashboard')">
-        
-  الرجوع للصفحة الرئيسية
-</button>
+            <div class="logo-text">/Dr.Eng Suhaila Mohieldin <span style="font-size:10px;color:var(--text-dim);font-weight:400"></span></div>
+      <div class="user-avatar" id="student-avatar">👤</div>
+      <span id="student-name-display" style="font-size:13px;font-weight:600;font-family:var(--font);color:var(--text-muted)">زائر</span>
     </div>
   </header>
 
@@ -342,23 +340,14 @@ select.form-input { cursor:pointer; }
       <button class="nav-item" data-nav="quiz" onclick="navigate('quiz')"><span class="nav-item-icon">🎯</span>الاختبارات</button>
       <button class="nav-item" data-nav="capstone" onclick="navigate('capstone')"><span class="nav-item-icon">🚀</span>مشروع التخرج</button>
       <button class="nav-item" data-nav="progress" onclick="navigate('progress')"><span class="nav-item-icon">📊</span>تقدمي</button>
-      <aside class="sidebar">
-  <a class="nav-item active" href="#student-dashboard" onclick="switchTab('student-dashboard')">
-    <span class="nav-item-icon">📊</span>
-    <span>لوحة الطالب</span>
-  </a>
-  
-  <a class="nav-item" href="#certificate-section" onclick="switchTab('certificate-section')">
-    <span class="nav-item-icon">🏆</span>
-    <span>الشهادة المعتمدة</span>
-    <span id="sidebar-cert-status" class="tag tag-amber" style="margin-right: auto; font-size: 10px;">مغلقة 🔒</span>
-  </a>
-</aside>
-      <button class="nav-item cert-nav-btn" data-nav="certificate" onclick="navigate('certificate')" style="margin-top: 20px; background: rgba(139,92,246,0.1); border: 1px dashed var(--purple); color: var(--purple);">
-  <span class="nav-item-icon">🏆</span>
-  <span>الشهادة والاعتماد</span>
-  <span id="sidebar-cert-status" class="tag tag-amber" style="margin-right: auto; font-size: 10px;">مغلقة 🔒</span>
-</button>
+      <button class="nav-item" data-nav="student" onclick="navigate('student')">
+        <span class="nav-item-icon">🎓</span>لوحة الطالب
+      </button>
+      <button class="nav-item cert-nav-btn" data-nav="certificate" onclick="navigate('certificate')" style="background:rgba(139,92,246,0.1);border:1px dashed var(--purple);color:var(--purple);">
+        <span class="nav-item-icon">🏆</span>
+        <span>الشهادة والاعتماد</span>
+        <span id="sidebar-cert-status" class="tag tag-amber" style="margin-right:auto;font-size:10px;">مغلقة 🔒</span>
+      </button>
     </div>
     <div class="sidebar-section">
       <div class="sidebar-label">الوحدات العشر — 80 ساعة</div>
@@ -530,7 +519,92 @@ select.form-input { cursor:pointer; }
         </div>
       </div>
     </div>
+<div class="page" id="page-student">
+  <div class="section-title">🎓 لوحة الطالب</div>
 
+  <!-- بطاقة الملف الشخصي -->
+  <div style="display:grid;grid-template-columns:340px 1fr;gap:20px;max-width:960px">
+
+    <!-- يسار: بطاقة الهوية -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="card" style="text-align:center;padding:28px 20px">
+        <div id="student-avatar-large" style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;margin:0 auto 14px;border:3px solid var(--accent-glow)">👤</div>
+        <div id="student-name-display2" style="font-size:18px;font-weight:700;font-family:var(--font);margin-bottom:4px">—</div>
+        <div id="student-email-display" style="font-size:12.5px;color:var(--text-muted);margin-bottom:12px;direction:ltr">—</div>
+        <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+          <span class="tag tag-green">طالب نشط</span>
+          <span class="tag tag-purple">مستوى متقدم</span>
+        </div>
+        <div style="font-size:11.5px;color:var(--text-dim);margin-bottom:16px">
+          📅 تاريخ التسجيل: <strong id="student-reg-date" style="color:var(--text-muted)">—</strong>
+        </div>
+        <button class="btn btn-outline" style="width:100%;font-size:13px" onclick="logoutStudent()">
+          🚪 تسجيل الخروج
+        </button>
+      </div>
+
+      <!-- تغيير كلمة المرور -->
+      <div class="card">
+        <div class="card-title">🔑 تغيير كلمة المرور</div>
+        <div class="form-row">
+          <label class="form-label">كلمة المرور الحالية</label>
+          <input id="old-password" type="password" class="form-input" placeholder="••••••••">
+        </div>
+        <div class="form-row">
+          <label class="form-label">كلمة المرور الجديدة</label>
+          <input id="new-password" type="password" class="form-input" placeholder="••••••••">
+        </div>
+        <button class="btn btn-primary" style="width:100%;margin-top:14px;font-size:13px" onclick="changePassword()">
+          حفظ كلمة المرور
+        </button>
+      </div>
+    </div>
+
+    <!-- يمين: الإحصائيات والتقدم -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <!-- إحصائيات سريعة -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+        <div class="card" style="text-align:center;padding:18px 12px">
+          <div style="font-size:28px;font-weight:800;font-family:var(--font);color:var(--accent)" id="student-progress-display">0%</div>
+          <div style="font-size:11.5px;color:var(--text-muted);margin-top:4px">التقدم الكلي</div>
+        </div>
+        <div class="card" style="text-align:center;padding:18px 12px">
+          <div style="font-size:28px;font-weight:800;font-family:var(--font);color:var(--purple)" id="student-xp-display">0</div>
+          <div style="font-size:11.5px;color:var(--text-muted);margin-top:4px">نقاط XP</div>
+        </div>
+        <div class="card" style="text-align:center;padding:18px 12px">
+          <div style="font-size:28px;font-weight:800;font-family:var(--font);color:var(--amber)" id="student-modules-done">0/10</div>
+          <div style="font-size:11.5px;color:var(--text-muted);margin-top:4px">وحدات مكتملة</div>
+        </div>
+      </div>
+
+      <!-- شريط التقدم -->
+      <div class="card">
+        <div class="card-title">📈 مسار الإنجاز</div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:6px">
+          <span>تقدم البرنامج</span>
+          <span id="student-progress-pct2" style="color:var(--accent);font-weight:600">0%</span>
+        </div>
+        <div style="background:var(--border);border-radius:6px;height:10px;margin-bottom:18px">
+          <div id="student-progress-bar" style="background:linear-gradient(90deg,var(--accent),#0099CC);border-radius:6px;height:10px;width:0%;transition:width .8s ease"></div>
+        </div>
+        <div id="student-modules-breakdown" style="display:flex;flex-direction:column;gap:7px"></div>
+      </div>
+
+      <!-- إجراءات سريعة -->
+      <div class="card">
+        <div class="card-title">⚡ إجراءات سريعة</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <button class="btn btn-outline" style="font-size:12.5px" onclick="navigate('modules')">📚 الوحدات</button>
+          <button class="btn btn-outline" style="font-size:12.5px" onclick="navigate('quiz')">🎯 الاختبارات</button>
+          <button class="btn btn-outline" style="font-size:12.5px" onclick="navigate('progress')">📊 تقدمي التفصيلي</button>
+          <button class="btn btn-outline" style="font-size:12.5px" onclick="navigate('certificate')">🏆 الشهادة</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
     <div class="page" id="page-certificate">
       <div class="section-title">🏆 شهادة البرنامج المتقدم</div>
       <div class="card" style="margin-bottom:16px;border-color:var(--amber-dim);max-width:760px">
@@ -2006,6 +2080,9 @@ function navigate(page){
   const navBtn = document.querySelector(`.nav-item[data-nav="${page}"]`);
   if(navBtn) navBtn.classList.add('active');
   document.querySelector('.main-area').scrollTop = 0;
+  if(page === "student"){
+    refreshStudentDashboard();
+}
 }
 
 /* ════════ AI TUTOR ════════ */
@@ -2411,6 +2488,213 @@ function submitRegister(){
 document.addEventListener('keydown',function(e){ if(e.key==='Escape')closeRegister(); });
 
 init();
+/* =========================
+   STUDENT ACCOUNT SYSTEM
+========================= */
+
+let currentStudent = JSON.parse(localStorage.getItem("currentStudent")) || null;
+
+function saveStudent(student){
+    localStorage.setItem("currentStudent", JSON.stringify(student));
+    currentStudent = student;
+
+    updateStudentUI();
+    refreshStudentDashboard(); // ⭐ مهم جداً
+}
+
+function updateStudentUI(){
+    if(!currentStudent){
+        document.getElementById("student-name-display").textContent = "زائر";
+        document.getElementById("student-avatar").textContent = "👤";
+        return;
+    }
+    document.getElementById("student-name-display").textContent = currentStudent.name;
+    const initials = currentStudent.name.split(/\s+/).filter(Boolean)
+        .reduce((acc,w,i,arr)=> i===0||i===arr.length-1 ? acc+w[0].toUpperCase() : acc, '').slice(0,2);
+    document.getElementById("student-avatar").textContent = initials || currentStudent.name.charAt(0).toUpperCase();
+}
+
+function refreshStudentDashboard(){
+    if(!currentStudent) return;
+
+    // الحقول الأساسية
+    const nameEl  = document.getElementById("student-name-display2");
+    const emailEl = document.getElementById("student-email-display");
+    const regEl   = document.getElementById("student-reg-date");
+    const avatarL = document.getElementById("student-avatar-large");
+
+    if(nameEl)  nameEl.textContent  = currentStudent.name  || "—";
+    if(emailEl) emailEl.textContent = currentStudent.email || "—";
+    if(regEl)   regEl.textContent   = currentStudent.registeredDate || "—";
+    if(avatarL){
+        const parts = (currentStudent.name||"").split(/\s+/).filter(Boolean);
+        let ini = parts.length>=2 ? (parts[0][0]+parts[parts.length-1][0]).toUpperCase() : (currentStudent.name||"?").slice(0,2).toUpperCase();
+        avatarL.textContent = ini;
+    }
+
+    // إحصائيات
+    const prog   = currentStudent.progress || 0;
+    const xp     = currentStudent.xp || 0;
+    const doneM  = MODULES.filter(m=>m.status==='done').length;
+
+    const progEl  = document.getElementById("student-progress-display");
+    const xpEl    = document.getElementById("student-xp-display");
+    const modEl   = document.getElementById("student-modules-done");
+    const pct2El  = document.getElementById("student-progress-pct2");
+    const barEl   = document.getElementById("student-progress-bar");
+    const brkEl   = document.getElementById("student-modules-breakdown");
+
+    if(progEl)  progEl.textContent  = prog + "%";
+    if(xpEl)    xpEl.textContent    = xp.toLocaleString();
+    if(modEl)   modEl.textContent   = doneM + "/10";
+    if(pct2El)  pct2El.textContent  = prog + "%";
+    if(barEl)   barEl.style.width   = prog + "%";
+
+    if(brkEl){
+        brkEl.innerHTML = MODULES.slice(0,5).map(m=>`
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font-size:14px">${m.icon}</span>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:3px">
+                <span style="font-family:var(--font);color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px">${m.title}</span>
+                <span style="color:${m.status==='done'?'var(--accent)':m.status==='active'?'var(--amber)':'var(--text-dim)'};font-weight:600;font-size:11px;flex-shrink:0;margin-right:8px">${m.status==='done'?'✓ مكتمل':m.status==='active'?'جارٍ':'مقفل'}</span>
+              </div>
+              <div style="background:var(--border);border-radius:3px;height:4px">
+                <div style="background:${m.status==='done'?'var(--accent)':'var(--blue)'};border-radius:3px;height:4px;width:${m.progress}%;transition:width .6s"></div>
+              </div>
+            </div>
+          </div>`).join('');
+    }
+}
+
+function registerStudent(){
+
+    const name =
+        document.getElementById("student-name").value.trim();
+
+    const email =
+        document.getElementById("student-email").value.trim();
+
+    const password =
+        document.getElementById("student-password").value;
+
+    if(!name || !email || !password){
+        alert("يرجى تعبئة جميع الحقول");
+        return;
+    }
+
+    const student = {
+        name:name,
+        email:email,
+        password:password,
+        registeredDate:new Date().toLocaleDateString(),
+        progress:0,
+        xp:0
+    };
+
+    localStorage.setItem(
+        "student_"+email,
+        JSON.stringify(student)
+    );
+
+    alert("تم إنشاء الحساب بنجاح");
+}
+
+function loginStudent(){
+
+    const email =
+        document.getElementById("login-email").value.trim();
+
+    const password =
+        document.getElementById("login-password").value;
+
+    const data =
+        localStorage.getItem("student_"+email);
+
+    if(!data){
+        alert("الحساب غير موجود");
+        return;
+    }
+
+    const student = JSON.parse(data);
+
+    if(student.password !== password){
+        alert("كلمة المرور غير صحيحة");
+        return;
+    }
+
+    saveStudent(student);
+
+    showNotif("✅ تم تسجيل الدخول");
+}
+
+function logoutStudent(){
+
+    localStorage.removeItem("currentStudent");
+
+    currentStudent = null;
+
+    updateStudentUI();
+
+    showNotif("تم تسجيل الخروج");
+}
+function changePassword(){
+
+    if(!currentStudent){
+        alert("يرجى تسجيل الدخول أولاً");
+        return;
+    }
+
+    const oldPass =
+        document.getElementById("old-password").value;
+
+    const newPass =
+        document.getElementById("new-password").value;
+
+    if(oldPass !== currentStudent.password){
+        alert("كلمة المرور الحالية غير صحيحة");
+        return;
+    }
+
+    currentStudent.password = newPass;
+
+    localStorage.setItem(
+        "student_"+currentStudent.email,
+        JSON.stringify(currentStudent)
+    );
+
+    saveStudent(currentStudent);
+
+    showNotif("🔑 تم تغيير كلمة المرور");
+}
 </script>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="login-modal" onclick="if(event.target===this)document.getElementById('login-modal').classList.remove('open')">
+  <div class="modal-card" style="width:400px">
+    <div class="modal-head">
+      <div class="mh-icon">🔑</div>
+      <div>
+        <div class="modal-title">تسجيل الدخول</div>
+        <div class="modal-sub">أدخل بياناتك للوصول إلى حسابك</div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('login-modal').classList.remove('open')" title="إغلاق">×</button>
+    </div>
+    <div class="form-row">
+      <label class="form-label">البريد الإلكتروني</label>
+      <input id="login-email" class="form-input" type="email" placeholder="name@example.com" dir="ltr">
+    </div>
+    <div class="form-row">
+      <label class="form-label">كلمة المرور</label>
+      <input id="login-password" type="password" class="form-input" placeholder="••••••••">
+    </div>
+    <button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="loginStudent()">دخول ←</button>
+    <div style="text-align:center;margin-top:12px;font-size:12px;color:var(--text-dim)">
+      ليس لديك حساب؟
+      <button style="background:none;border:none;color:var(--accent);cursor:pointer;font-size:12px;font-family:var(--font)" onclick="document.getElementById('login-modal').classList.remove('open');navigate('student')">إنشاء حساب</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
