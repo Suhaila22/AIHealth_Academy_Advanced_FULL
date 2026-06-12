@@ -165,11 +165,11 @@ select.form-input { cursor:pointer; }
     </div>
     <div class="topbar-right">
       <button class="btn-register" onclick="openRegister()">📝 سجّل في البرنامج</button>
-      <div class="level-badge">🎖️ <span id="level-display">مستوى متقدم</span></div>
-      <div class="xp-badge">⚡ <span id="xp-display">0</span> XP</div>
-      <div class="logo-text"><span id="user-name-topbar">ضيف</span></div>
-      <div class="user-avatar" title="الطالب" id="user-avatar">ض</div>
-      <button class="btn btn-outline" id="logout-btn-top" style="display:none;margin-right:12px" onclick="authManager.logout()">🚪 خروج</button>
+      <div class="level-badge">🎖️ مستوى متقدم</div>
+      <div class="xp-badge">⚡ <span id="xp-display">1,240</span> XP</div>
+      <div class="logo-text">/Dr.Eng Suhaila Mohieldin <span style="font-size:10px;color:var(--text-dim);font-weight:400"></span></div>
+      <div class="user-avatar" title="د. سهيلة محي الدين" id="user-avatar">سم</div>
+      <button class="btn btn-outline" onclick="navigate('dashboard')">الرجوع للصفحة الرئيسية</button>
     </div>
   </header>
 
@@ -179,27 +179,26 @@ select.form-input { cursor:pointer; }
       <button class="nav-item active" data-nav="dashboard" onclick="navigate('dashboard')"><span class="nav-item-icon">🏠</span>لوحة التحكم</button>
       <button class="nav-item" data-nav="modules" onclick="navigate('modules')"><span class="nav-item-icon">📚</span>الوحدات<span class="nav-badge">10</span></button>
       <button class="nav-item" data-nav="progress" onclick="navigate('progress')"><span class="nav-item-icon">📊</span>تقدمي</button>
-      <button class="nav-item" data-nav="certificate" onclick="navigate('certificate')"><span class="nav-item-icon">🏆</span>الشهادة</button>
     </div>
     <div class="sidebar-section">
       <div class="sidebar-label">الوحدات العشر — 80 ساعة</div>
       <div class="module-list" id="sidebar-modules"></div>
     </div>
     <div class="progress-mini">
-      <div class="progress-mini-label"><span>تقدم البرنامج</span><span id="progress-pct">0%</span></div>
-      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
+      <div class="progress-mini-label"><span>تقدم البرنامج</span><span id="progress-pct">22%</span></div>
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:22%"></div></div>
     </div>
   </aside>
 
   <main class="main-area">
     <div class="page active" id="page-dashboard">
-      <div class="greeting-sub" id="greeting-sub">برنامج متقدم — الذكاء الاصطناعي في الرعاية الصحية 👋</div>
-      <div class="greeting-title" id="greeting-title">أهلاً <span id="student-name-greeting">بك</span></div>
-      <div class="stats-grid" id="stats-grid">
-        <div class="stat-card"><div class="stat-icon">📚</div><div class="stat-value" id="stat-modules">0/10</div><div class="stat-label">��حدات مكتملة</div></div>
-        <div class="stat-card"><div class="stat-icon">⏱️</div><div class="stat-value" id="stat-hours">0</div><div class="stat-label">ساعة من أصل 80</div></div>
-        <div class="stat-card"><div class="stat-icon">🐍</div><div class="stat-value" id="stat-colab">0</div><div class="stat-label">مختبرات Colab</div></div>
-        <div class="stat-card"><div class="stat-icon">🎯</div><div class="stat-value" id="stat-quiz">0%</div><div class="stat-label">متوسط الاختبارات</div></div>
+      <div class="greeting-sub">البرنامج المتقدم — الذكاء الاصطناعي في الرعاية الصحية 👋</div>
+      <div class="greeting-title">د. سهيلة <span>محي الدين</span></div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-icon">📚</div><div class="stat-value">2/10</div><div class="stat-label">وحدات مكتملة</div></div>
+        <div class="stat-card"><div class="stat-icon">⏱️</div><div class="stat-value">17.5</div><div class="stat-label">ساعة من أصل 80</div></div>
+        <div class="stat-card"><div class="stat-icon">🐍</div><div class="stat-value">4</div><div class="stat-label">مختبرات Colab</div></div>
+        <div class="stat-card"><div class="stat-icon">🎯</div><div class="stat-value">87%</div><div class="stat-label">متوسط الاختبارات</div></div>
       </div>
       <div class="dashboard-grid">
         <div>
@@ -210,30 +209,17 @@ select.form-input { cursor:pointer; }
     </div>
 
     <div class="page" id="page-modules">
-      <div class="section-title">📚 الوحدات العشر — المنهج المتقدم الكامل</div>
+      <div class="section-title">📚 الوحدات العشر</div>
       <div id="modules-list-full"></div>
     </div>
 
     <div class="page" id="page-progress">
       <div class="section-title">📊 تتبع تقدمي</div>
       <div style="display:flex;gap:16px;margin-bottom:22px">
-        <div class="big-stat"><div class="big-stat-num" id="stat-completion">0%</div><div class="big-stat-label">الإنجاز الكلي</div></div>
-        <div class="big-stat"><div class="big-stat-num" id="stat-xp-big">0</div><div class="big-stat-label">نقاط XP</div></div>
-        <div class="big-stat"><div class="big-stat-num" id="stat-streak">0</div><div class="big-stat-label">أيام متتالية</div></div>
-        <div class="big-stat"><div class="big-stat-num" id="stat-rank">—</div><div class="big-stat-label">ترتيبك</div></div>
-      </div>
-    </div>
-
-    <div class="page" id="page-certificate">
-      <div class="section-title">🏆 شهادة البرنامج المتقدم</div>
-      <div class="card" style="margin-bottom:16px;border-color:var(--amber-dim);max-width:760px">
-        <div style="display:flex;align-items:center;gap:12px">
-          <span style="font-size:26px">⚠️</span>
-          <div>
-            <div style="font-size:14px;font-weight:600;font-family:var(--font);margin-bottom:3px">الشهادة غير متاحة بعد</div>
-            <div style="font-size:13px;color:var(--text-muted)">المتطلبات: إكمال الوحدات العشر + اجتياز جميع الاختبارات (≥70%) + تسليم مشروع التخرج</div>
-          </div>
-        </div>
+        <div class="big-stat"><div class="big-stat-num">22%</div><div class="big-stat-label">الإنجاز الكلي</div></div>
+        <div class="big-stat"><div class="big-stat-num">1,240</div><div class="big-stat-label">نقاط XP</div></div>
+        <div class="big-stat"><div class="big-stat-num">🔥 7</div><div class="big-stat-label">أيام متتالية</div></div>
+        <div class="big-stat"><div class="big-stat-num">#3</div><div class="big-stat-label">ترتيبك</div></div>
       </div>
     </div>
   </main>
@@ -279,11 +265,10 @@ select.form-input { cursor:pointer; }
   </div>
 </div>
 
-<div class="notification" id="notif"></div>
+<div class="notification" id="notif" style="display:none"></div>
 
 <script src="auth.js"></script>
 <script>
-/* ════════ MODULES DATA ════════ */
 const MODULES = [
   { id:1, icon:'🏥', title:'أسس الذكاء الاصطناعي السريري', hours:8, progress:100, status:'done' },
   { id:2, icon:'🔗', title:'هندسة البيانات الطبية', hours:8, progress:100, status:'done' },
@@ -293,7 +278,7 @@ const MODULES = [
   { id:6, icon:'💡', title:'الذكاء الاصطناعي التفسيري XAI', hours:8, progress:0, status:'locked' },
   { id:7, icon:'🤝', title:'الذكاء الوكيل وأنظمة دعم القرار', hours:8, progress:0, status:'locked' },
   { id:8, icon:'🔐', title:'التعلم الفيدرالي والخصوصية', hours:6, progress:0, status:'locked' },
-  { id:9, icon:'⚖️', title:'الحوكمة والتحيز والامتثال التنظيمي', hours:6, progress:0, status:'locked' },
+  { id:9, icon:'⚖️', title:'الحوكمة والتحيز والامتثال', hours:6, progress:0, status:'locked' },
   { id:10, icon:'🚀', title:'مشروع التخرج: نظام AI متكامل', hours:8, progress:0, status:'locked' },
 ];
 
@@ -305,33 +290,10 @@ function navigate(page) {
   document.querySelector(`[data-nav="${page}"]`).classList.add('active');
 }
 
-function renderDashboard() {
-  const user = authManager.currentUser;
-  if (!user) return;
-
-  // تحديث الترحيب
-  document.getElementById('student-name-greeting').textContent = user.name.split(' ')[0];
-  document.getElementById('greeting-sub').textContent = `${user.role} • ${user.org || 'بدون جهة'}`;
-  
-  // تحديث الإحصائيات
-  document.getElementById('stat-modules').textContent = `${user.modulesCompleted.length}/10`;
-  document.getElementById('stat-hours').textContent = (user.lessonsCompleted.length * 1.5).toFixed(1);
-  document.getElementById('stat-quiz').textContent = (user.quizAverage || 0) + '%';
-  
-  // تحديث صفحة التقدم
-  document.getElementById('stat-completion').textContent = user.progress + '%';
-  document.getElementById('stat-xp-big').textContent = user.xp.toLocaleString('ar-EG');
-  document.getElementById('stat-streak').textContent = (user.streak || 0) + ' 🔥';
-  document.getElementById('stat-rank').textContent = user.rank;
-  
-  // تحديث الوحدات في الداشبورد
-  renderModules();
-}
-
 function renderModules() {
   const grid = document.getElementById('dashboard-modules');
   grid.innerHTML = MODULES.map(m => `
-    <div class="module-card ${m.status}" style="cursor:${m.status === 'locked' ? 'not-allowed' : 'pointer'}" onclick="m.status !== 'locked' && showNotif('${m.title}')">
+    <div class="module-card ${m.status}" style="cursor:${m.status === 'locked' ? 'not-allowed' : 'pointer'}">
       <div class="module-card-icon">${m.icon}</div>
       <div class="module-card-name">${m.title}</div>
       <div style="font-size:10px;color:var(--text-muted);margin-top:6px">${m.hours} ساعة</div>
@@ -340,32 +302,46 @@ function renderModules() {
       </div>
     </div>
   `).join('');
-  
-  // تحديث السايدبار
-  const sidebar = document.getElementById('sidebar-modules');
-  sidebar.innerHTML = MODULES.slice(0, 5).map(m => `
-    <button class="module-item" onclick="showNotif('${m.title}')">
-      <div class="module-dot ${m.status === 'done' ? 'done' : m.status === 'active' ? 'act' : ''}">
-        ${m.status === 'done' ? '✓' : m.status === 'active' ? '▶' : ''}
-      </div>
-      <div class="module-info">
-        <div class="module-title">${m.title}</div>
-        <div class="module-week" style="font-size:9px">الأسبوع ${m.id}</div>
-      </div>
-    </button>
-  `).join('');
 }
 
 function showNotif(msg) {
   const notif = document.getElementById('notif');
   notif.textContent = msg;
-  notif.classList.add('show');
-  setTimeout(() => notif.classList.remove('show'), 3000);
+  notif.style.display = 'block';
+  setTimeout(() => notif.style.display = 'none', 3000);
+}
+
+function openRegister() {
+  document.getElementById('register-modal').classList.add('open');
+}
+
+function closeRegister() {
+  document.getElementById('register-modal').classList.remove('open');
+}
+
+function submitRegister() {
+  const name = document.getElementById('reg-name').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const org = document.getElementById('reg-org').value.trim();
+  const role = document.getElementById('reg-role').value;
+
+  if (!name || !email) {
+    showNotif('❌ يرجى ملء الحقول المطلوبة');
+    return;
+  }
+
+  const result = authManager.register(name, email, org, role);
+  if (result.success) {
+    closeRegister();
+    navigate('dashboard');
+  } else {
+    showNotif(`❌ ${result.error}`);
+  }
 }
 
 // تهيئة الصفحة
-window.addEventListener('DOMContentLoaded', () => {
-  renderDashboard();
+window.addEventListener('load', () => {
+  renderModules();
 });
 </script>
 </body>
